@@ -1,6 +1,6 @@
-<?php include_once ("partials/header.php") ?>
+<?php include_once("partials/header.php") ?>
 <?php
- function connectToDb($host, $db, $user, $pass){
+function connectToDb($host, $db, $user, $pass){
     $pdo = new PDO('mysql:host=' . $host . '; port=3306; dbname=' . $db, $user, $pass);
     return $pdo;
 }
@@ -11,8 +11,8 @@ $stmt->execute();
 $results = $stmt->fetchAll();
 ?>
 
-<form method="POST" action="">
-    <label for="">Mot de passe</label>
+<form class="principal_form" method="POST" action="">
+    <label for="password">Mot de passe</label>
     <input name="password" placeholder="Mot de passe" type="text">
     <button type="submit">Entrer le mot de passe</button>
 </form>
@@ -26,33 +26,11 @@ if (isset($_POST['password'])) {
     $inputPassword = $_POST['password'];
 
     if ($inputPassword == $password) {
-    ?>
-        <table border="1px">
 
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th><button onclick="copyText()">copy</button></th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <?php
-                foreach ($results as $row): ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo("<div class='email'>".$row['email']."</div>"); ?></td>
-                        <td><a href="?delete=<?php echo intval($row['id']) ?>">Delete</a></td>
-                    </tr>
-
-
-                <?php endforeach; ?>
-
-            </tbody>
-        </table>
-        <?php
+        include_once("./table.php");
     }
+} else {
+    echo 'Veuillez entrer un mot de passe';
 }
 
 if (isset($_GET['delete'])) {
