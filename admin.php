@@ -49,6 +49,22 @@ if (isset($_GET['delete'])) {
     echo "Veuillez refresh pour voir les motifications";
 }
 
+if (isset($_POST['changeState'])) {
+    $changeId = intval($_POST['changeState']);
+    foreach ($results as $row) {
+        if ($row['disabled'] == 1) {
+            $sql = "UPDATE emails SET disabled = 0 WHERE id = :id;";
+        } else {
+            $sql = "UPDATE emails SET disabled = 1 WHERE id = :id;";
+        }
+    }
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $changeId, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    echo "Veuillez rafraîchir pour voir les modifications";
+}
+
 
 
 include_once("./partials/footer.php");
