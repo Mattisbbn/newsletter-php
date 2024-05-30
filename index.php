@@ -1,7 +1,7 @@
 <?php include_once("partials/header.php") ?>
 <form class="principal_form" method="POST" action="">
     <label for="email">Email</label>
-    <input type="text" name="email" placeholder="email" required>
+    <input type="email" name="email" placeholder="email" required>
     <button type="submit">Confirmer</button>
 </form>
 
