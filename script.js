@@ -1,10 +1,10 @@
 function copyText() {
     let emails = document.querySelectorAll('.email');
     let emailText = "";
-    let disabledMails = document.querySelectorAll('span[disabled="true"]');
     emails.forEach(function(email) {
-       
-        emailText += email.textContent + " "; 
+        if (email.getAttribute('disabled') == 0) {
+            emailText += email.textContent + " ";
+        }
     });
     navigator.clipboard.writeText(emailText);
 }
