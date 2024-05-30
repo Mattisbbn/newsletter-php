@@ -1,6 +1,7 @@
 <?php include_once("partials/header.php") ?>
 <?php
-function connectToDb($host, $db, $user, $pass){
+function connectToDb($host, $db, $user, $pass)
+{
     $pdo = new PDO('mysql:host=' . $host . '; port=3306; dbname=' . $db, $user, $pass);
     return $pdo;
 }
@@ -12,8 +13,8 @@ $results = $stmt->fetchAll();
 ?>
 
 <form class="principal_form" method="POST" action="">
-    <label for="password">Mot de passe</label>
-    <input name="password" placeholder="Mot de passe" type="text">
+    <label for="password_input">Mot de passe</label>
+    <input id="password_input" name="password" placeholder="Mot de passe" type="text">
     <button type="submit">Entrer le mot de passe</button>
 </form>
 
@@ -26,8 +27,15 @@ if (isset($_POST['password'])) {
     $inputPassword = $_POST['password'];
 
     if ($inputPassword == $password) {
-
+        setcookie('stored_password', json_encode($inputPassword), strtotime("+1 year"));
         include_once("./table.php");
+    }
+} else if (isset($_COOKIE['stored_password'])) {
+    $stored_password = json_decode($_COOKIE['stored_password']);
+    if ($stored_password == $password) {
+        include_once("./table.php");
+    } else {
+        echo ("le mot de passe enregistré n'est pas le bon");
     }
 } else {
     echo 'Veuillez entrer un mot de passe';
@@ -39,6 +47,7 @@ if (isset($_GET['delete'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $deleteId, PDO::PARAM_INT);
     $stmt->execute();
+    echo "Veuillez refresh pour voir les motifications";
 }
 ?>
 
