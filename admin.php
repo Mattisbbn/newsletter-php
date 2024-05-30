@@ -1,7 +1,6 @@
 <?php include_once("partials/header.php") ?>
 <?php
-function connectToDb($host, $db, $user, $pass)
-{
+function connectToDb($host, $db, $user, $pass){
     $pdo = new PDO('mysql:host=' . $host . '; port=3306; dbname=' . $db, $user, $pass);
     return $pdo;
 }
@@ -28,12 +27,12 @@ if (isset($_POST['password'])) {
 
     if ($inputPassword == $password) {
         setcookie('stored_password', json_encode($inputPassword), strtotime("+1 year"));
-        include_once("./table.php");
+        include_once("./partials/table.php");
     }
 } else if (isset($_COOKIE['stored_password'])) {
     $stored_password = json_decode($_COOKIE['stored_password']);
     if ($stored_password == $password) {
-        include_once("./table.php");
+        include_once("./partials/table.php");
     } else {
         echo ("le mot de passe enregistré n'est pas le bon");
     }
@@ -49,6 +48,9 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     echo "Veuillez refresh pour voir les motifications";
 }
+
+
+
+include_once("./partials/footer.php");
 ?>
 
-<script src="script.js"></script>

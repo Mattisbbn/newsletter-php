@@ -18,24 +18,22 @@ if (isset($_POST["unsub_email"]) && $_POST["unsub_email"] !== "") {
     $unsub_email = $_POST["unsub_email"];
 
 
- 
+
     $pdo = connectToDb('localhost', 'db1', 'mattis', '49610');
     $sql = "SELECT email FROM emails";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $emails = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-    var_dump($emails);
-
-    if(in_array($unsub_email, $emails)){
+    if (in_array($unsub_email, $emails)) {
         $deleteCommand = "DELETE FROM emails WHERE email = :unsub_email";
         $stmtDelete = $pdo->prepare($deleteCommand);
         $stmtDelete->bindParam(':unsub_email', $unsub_email);
         $stmtDelete->execute();
-    }else{
-        echo("L'email n'existe pas dans la base de données ");
-
-}};
+    } else {
+        echo ("L'email n'existe pas dans la base de données ");
+    }
+};
 
 
 
