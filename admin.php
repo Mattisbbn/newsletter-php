@@ -1,6 +1,7 @@
 <?php include_once("partials/header.php") ?>
 <?php
-function connectToDb($host, $db, $user, $pass){
+function connectToDb($host, $db, $user, $pass)
+{
     $pdo = new PDO('mysql:host=' . $host . '; port=3306; dbname=' . $db, $user, $pass);
     return $pdo;
 }
@@ -40,11 +41,14 @@ if (isset($_POST['password'])) {
     echo 'Veuillez entrer un mot de passe';
 }
 
-if (isset($_GET['delete'])) {
-    $deleteId = intval($_GET['delete']);
+
+
+if (isset($_POST['delete_email'])) {
+    $deleteId = intval($_POST['delete_email']);
+    $rowid = $_POST["rowid"];
     $sql = "DELETE FROM emails WHERE id = :id";
     $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id', $deleteId, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $rowid, PDO::PARAM_INT);
     $stmt->execute();
     echo "Veuillez refresh pour voir les motifications";
 }
@@ -61,7 +65,7 @@ if (isset($_POST['changeState'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $changeId, PDO::PARAM_INT);
     $stmt->execute();
-    
+
     echo "Veuillez rafraîchir pour voir les modifications";
 }
 
@@ -69,4 +73,3 @@ if (isset($_POST['changeState'])) {
 
 include_once("./partials/footer.php");
 ?>
-

@@ -30,21 +30,29 @@
                         echo ('Desactivé');
                     } ?>
                 </td>
-                <td><a href="?delete=<?php echo intval($row['id']) ?>">Delete</a></td>
                 <td>
-    <form method="post" action="admin.php">
-        <input type="hidden" name="changeState" value="<?php echo intval($row['id']); ?>">
-        <button type="submit">
-            <?php
-            if ($disabled == true) {
-                echo("Activer");
-            } else {
-                echo("Désactiver");
-            }
-            ?>
-        </button>
-    </form>
-</td>
+
+
+                    <form method="POST">
+                        <input type="hidden" name="rowid" value="<?php echo intval($row['id']); ?>">
+                        <button name="delete_email" type="submit">Delete</button>
+                    </form>
+
+                </td>
+                <td>
+                    <form method="post" action="admin.php">
+                        <input type="hidden" name="changeState" value="<?php echo intval($row['id']); ?>">
+                        <button type="submit">
+                            <?php
+                            if ($disabled == true) {
+                                echo ("Activer");
+                            } else {
+                                echo ("Désactiver");
+                            }
+                            ?>
+                        </button>
+                    </form>
+                </td>
 
 
             </tr>
