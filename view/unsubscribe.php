@@ -1,4 +1,4 @@
-<?php include_once("./partials/header.php") ?>
+
 <form class="principal_form" method="POST">
     <label for="unsubscribe_input">Unsubscribe</label>
     <input id="unsubscribe_input" name="unsub_email" placeholder="Email" type="email">
@@ -6,11 +6,7 @@
 </form>
 
 <?php
-function connectToDb($host, $db, $user, $pass)
-{
-    $pdo = new PDO('mysql:host=' . $host . '; port=3306; dbname=' . $db, $user, $pass);
-    return $pdo;
-}
+
 
 
 if (isset($_POST["unsub_email"]) && $_POST["unsub_email"] !== "") {

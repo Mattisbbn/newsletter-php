@@ -9,4 +9,6 @@
 </head>
 
 <body>
-    <header><h2>Newsletter</h2></header>
+    <header>
+        <h2>Newsletter</h2>
+    </header>

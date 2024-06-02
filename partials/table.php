@@ -1,3 +1,13 @@
+<?php
+
+$sql = "SELECT * FROM emails";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$results = $stmt->fetchAll();
+?>
+
+
+
 <table border="1px">
     <thead>
         <tr>
@@ -22,14 +32,14 @@
                 ?>
 
 
-                <td><?php echo $row['id']; ?></td>
-                <td><?php echo ("<div class='email' disabled='$disabled' >" . $row['email'] . "</div>"); ?></td>
-                <td><?php if ($disabled == 0) {
-                        echo 'Activé';
-                    } else {
-                        echo ('Desactivé');
-                    } ?>
-                </td>
+                <?php echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . ("<div class='email' disabled='$disabled' >" . $row['email'] . "</div>") . "</td>";
+                if ($disabled == 0) {
+                    echo "<td>" . "Activé" . "</td>";
+                } else {
+                    echo "<td>" . 'Desactivé' . "</td>";
+                } ?>
+
                 <td>
 
 
@@ -40,7 +50,7 @@
 
                 </td>
                 <td>
-                    <form method="post" action="admin.php">
+                    <form method="post">
                         <input type="hidden" name="changeState" value="<?php echo intval($row['id']); ?>">
                         <button type="submit">
                             <?php
