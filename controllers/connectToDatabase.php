@@ -15,9 +15,10 @@ function fetchAllDb(){
     return $results;
 }
 function fetchSingleDb($id) {
-    global $pdo;
+    $pdo = connectToDb('localhost', 'db1', 'mattis', '49610');
     $stmt = $pdo->prepare("SELECT * FROM emails WHERE id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
