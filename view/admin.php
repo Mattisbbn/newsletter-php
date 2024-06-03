@@ -1,8 +1,3 @@
-<?php
-
-
-?>
-
 <form class="principal_form" method="POST">
     <label for="password_input">Mot de passe</label>
     <input id="password_input" name="password" placeholder="Mot de passe" type="text">
@@ -33,7 +28,6 @@ if (isset($_POST['password'])) {
 }
 
 
-
 if (isset($_POST['delete_email'])) {
     $deleteId = intval($_POST['delete_email']);
     $rowid = $_POST["rowid"];
@@ -46,19 +40,29 @@ if (isset($_POST['delete_email'])) {
 
 if (isset($_POST['changeState'])) {
     $changeId = intval($_POST['changeState']);
-    foreach (fetchAllDb() as $row) {
+    $row = fetchSingleDb($changeId);
+    if ($row) {
         if ($row['disabled'] == 1) {
             $sql = "UPDATE emails SET disabled = 0 WHERE id = :id;";
-        } else {
+        } else if ($row['disabled'] == 0) {
             $sql = "UPDATE emails SET disabled = 1 WHERE id = :id;";
+        } else {
+            echo "Erreur";
+            exit;
         }
-    }
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':id', $changeId, PDO::PARAM_INT);
-    $stmt->execute();
 
-    echo "Veuillez rafraîchir pour voir les modifications";
+        // Prepare and execute the statement
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':id', $changeId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo "Veuillez rafraîchir pour voir les modifications";
+    } else {
+        echo "ID non trouvé";
+    }
 }
+
+
 
 
 
