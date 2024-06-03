@@ -12,4 +12,7 @@ if (isset($_GET['admin'])) {
 } else {
     include_once("view/homepage.php");
 }
+
+
+include_once("partials/footer.php")
 ?>

@@ -16,7 +16,7 @@ if (isset($_POST['email'])) {
 }
 ?>
 <a href="?admin">Admin</a>
-<a href="unsubscribe.php">Unsubscribe</a>
+<a href="?unsubscribe">Unsubscribe</a>
 </body>
 
 </html>
