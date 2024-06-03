@@ -1,13 +1,3 @@
-<?php
-
-$sql = "SELECT * FROM emails";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$results = $stmt->fetchAll();
-?>
-
-
-
 <table border="1px">
     <thead>
         <tr>
@@ -20,19 +10,15 @@ $results = $stmt->fetchAll();
     </thead>
     <tbody>
         <?php
-        foreach ($results as $row) : ?>
+        foreach (fetchAllDb() as $row) : ?>
             <tr>
-
                 <?php
                 if ($row['disabled'] == 0) {
                     $disabled = false;
                 } else {
                     $disabled = true;
                 }
-                ?>
-
-
-                <?php echo "<td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . ("<div class='email' disabled='$disabled' >" . $row['email'] . "</div>") . "</td>";
                 if ($disabled == 0) {
                     echo "<td>" . "Activé" . "</td>";
@@ -41,8 +27,6 @@ $results = $stmt->fetchAll();
                 } ?>
 
                 <td>
-
-
                     <form method="POST">
                         <input type="hidden" name="rowid" value="<?php echo intval($row['id']); ?>">
                         <button name="delete_email" type="submit">Delete</button>

@@ -1,10 +1,6 @@
-<?php include_once("partials/header.php") ?>
 <?php
 
-$sql = "SELECT * FROM emails";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$results = $stmt->fetchAll();
+
 ?>
 
 <form class="principal_form" method="POST">
@@ -50,7 +46,7 @@ if (isset($_POST['delete_email'])) {
 
 if (isset($_POST['changeState'])) {
     $changeId = intval($_POST['changeState']);
-    foreach ($results as $row) {
+    foreach (fetchAllDb() as $row) {
         if ($row['disabled'] == 1) {
             $sql = "UPDATE emails SET disabled = 0 WHERE id = :id;";
         } else {
